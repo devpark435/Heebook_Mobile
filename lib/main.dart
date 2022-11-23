@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'screens/home.dart';
+import 'screens/HomePage.dart';
 import 'screens/open.dart';
 import 'screens/recruit.dart';
+import 'assets/Styles.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,7 +30,7 @@ class BottomNav extends StatefulWidget {
 }
 
 class _BottomNavState extends State<BottomNav> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
@@ -84,4 +85,44 @@ class _BottomNavState extends State<BottomNav> {
   void dispose() {
     super.dispose();
   }
+}
+
+Widget ctgContaner(context, mainText, subText) {
+  return Container(
+    alignment: Alignment.center,
+    width: MediaQuery.of(context).size.width * 0.45,
+    height: 250,
+    decoration: BoxDecoration(
+        color: Colors.amber, borderRadius: BorderRadius.circular(25)),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(50)),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+          child: Container(
+            child: Text(
+              mainText,
+              style: Styles.mainText,
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: Text(
+            subText,
+            style: Styles.subText,
+          ),
+        )
+      ],
+    ),
+  );
 }
