@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heebook_application/main.dart';
 import 'package:heebook_application/assets/Styles.dart';
+import 'package:heebook_application/screens/categorys/EmpInfo/Empinfo_Sa.dart';
 import './EmpInfo/Empinfo_It.dart';
 
 class EmpInfo extends StatefulWidget {
@@ -36,7 +37,15 @@ class _EmpInfoState extends State<EmpInfo> {
                             builder: ((context) => EmpInfo_IT())));
                   },
                 ),
-                ctgContaner(context, 'mainText', 'subText')
+                GestureDetector(
+                  child: ctgContaner(context, '사회융합', '사복, 사과'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => EmpInfo_Sa())));
+                  },
+                ),
               ],
             ),
             SizedBox(
