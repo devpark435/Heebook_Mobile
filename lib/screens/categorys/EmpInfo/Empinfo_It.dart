@@ -12,6 +12,7 @@ class EmpInfo_IT extends StatefulWidget {
 
 class _EmpInfo_ITState extends State<EmpInfo_IT> {
   List<String> empInfoTitle = [];
+  List<String> empInfoCompany = [];
   // List<Map<String, dynamic>>? empInfoTitle;
   // initialize WebScraper by passing base url of website
   // final webScraper = WebScraper('https://career.programmers.co.kr/');
@@ -48,7 +49,9 @@ class _EmpInfo_ITState extends State<EmpInfo_IT> {
             ////*[@id="list-positions-wrapper"]/ul/li[1]/div[2]/div[1]/h5/a
             //ul.list-positions>li.list-position-item>div.item-body > div.position-title-wrapper> h5.position-title > a.position-link
             'div.area_job > h2 > a > span');
-
+        empInfoCompany = webScraper
+            .getElementTitle('div.content > div > div.area_corp > strong > a');
+        //document.querySelector("#recruit_info_list > div.content > div:nth-child(1) > div.area_corp > strong > a")
         //2 1
       });
       print(empInfoTitle);
@@ -66,6 +69,7 @@ class _EmpInfo_ITState extends State<EmpInfo_IT> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text("IT"),
       ),
@@ -79,13 +83,35 @@ class _EmpInfo_ITState extends State<EmpInfo_IT> {
                   itemCount: empInfoTitle!.length,
                   itemBuilder: (BuildContext context, int index) {
                     // Attributes are in the form of List<Map<String, dynamic>>.
-                    return ExpansionTile(
-                      title: Text(empInfoTitle[index]),
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                        )
-                      ],
+                    return Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: 100,
+                      child: Card(
+                        elevation: 5,
+                        surfaceTintColor: Colors.white,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 10, 0, 10),
+                                child: Container(
+                                  width: 75,
+                                  height: 75,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      color: Colors.amber),
+                                ),
+                              ),
+                              Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(empInfoCompany[index]))
+                            ],
+                          ),
+                        ),
+                      ),
                     );
                   })),
     );
