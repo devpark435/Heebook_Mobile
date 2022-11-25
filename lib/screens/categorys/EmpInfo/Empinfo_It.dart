@@ -13,29 +13,6 @@ class EmpInfo_IT extends StatefulWidget {
 class _EmpInfo_ITState extends State<EmpInfo_IT> {
   List<String> empInfoTitle = [];
   List<String> empInfoCompany = [];
-  // List<Map<String, dynamic>>? empInfoTitle;
-  // initialize WebScraper by passing base url of website
-  // final webScraper = WebScraper('https://career.programmers.co.kr/');
-
-  // void fetchProducts() async {
-  //   // Loads web page and downloads into local state of library
-  //   if (await webScraper.loadWebPage('job')) {
-  //     setState(() {
-  //       // getElement takes the address of html tag/element and attributes you want to scrap from website
-  //       // it will return the attributes in the same order passed
-  //       empInfoTitle = webScraper.getElement(
-  //           //채용공고 타이틀 스크랩
-  //           //document.querySelector("#list-positions-wrapper > ul > li:nth-child(1) > div.item-body > div.position-title-wrapper > h5 > a")
-  //           ////*[@id="list-positions-wrapper"]/ul/li[1]/div[2]/div[1]/h5/a
-  //           //ul.list-positions>li.list-position-item>div.item-body > div.position-title-wrapper> h5.position-title > a.position-link
-  //           'div.position-title-wrapper>h5.position-title > a.position-link',
-  //           ['href']);
-
-  //       //2 1
-  //     });
-  //     print(empInfoTitle);
-  //   }
-  // }
   final webScraper = WebScraper('https://www.saramin.co.kr/');
   void fetchProducts() async {
     if (await webScraper.loadWebPage(
@@ -54,9 +31,11 @@ class _EmpInfo_ITState extends State<EmpInfo_IT> {
         //document.querySelector("#recruit_info_list > div.content > div:nth-child(1) > div.area_corp > strong > a")
         //2 1
       });
-      print(empInfoTitle);
+      // print(empInfoTitle);
+
     }
   }
+  /**사람인 크롤링 데이터  */
 
 //document.querySelector("#recruit_info_list > div.content > div:nth-child(1) > div.area_job > h2 > a > span")
   @override
@@ -80,6 +59,7 @@ class _EmpInfo_ITState extends State<EmpInfo_IT> {
                       CircularProgressIndicator(), // Loads Circular Loading Animation
                 )
               : ListView.builder(
+                  scrollDirection: Axis.vertical,
                   itemCount: empInfoTitle!.length,
                   itemBuilder: (BuildContext context, int index) {
                     // Attributes are in the form of List<Map<String, dynamic>>.
@@ -89,27 +69,51 @@ class _EmpInfo_ITState extends State<EmpInfo_IT> {
                       child: Card(
                         elevation: 5,
                         surfaceTintColor: Colors.white,
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 10, 0, 10),
-                                child: Container(
-                                  width: 75,
-                                  height: 75,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: Colors.amber),
-                                ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
+                              child: Container(
+                                width: 75,
+                                height: 75,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: Colors.amber),
                               ),
-                              Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(empInfoCompany[index]))
-                            ],
-                          ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.fromLTRB(5, 0, 0, 5),
+                                      child: Container(
+                                          width: 350,
+                                          alignment: Alignment.topLeft,
+                                          child: Text(
+                                            empInfoCompany[index]
+                                                .replaceAll(" ", ""),
+                                            style: Styles.mainText,
+                                          )),
+                                    ),
+                                    Container(
+                                        width: 350,
+                                        alignment: Alignment.bottomLeft,
+                                        margin:
+                                            EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                        child: Text(
+                                          empInfoTitle[index],
+                                          // style: Styles.subText,
+                                        )),
+                                  ],
+                                ))
+                          ],
                         ),
                       ),
                     );
