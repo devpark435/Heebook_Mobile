@@ -24,22 +24,31 @@ class _EmpInfo_SaState extends State<EmpInfo_Sa> {
 
     final titles = html
         .querySelectorAll(
-            'td.notification_info > div.job_tit > a.str_tit > span') //#rec-44415891 > td.notification_info > div.job_tit > a.str_tit > span
+            'td.notification_info > div.job_tit > a.str_tit > span')
+        .map((e) => e.innerHtml.trim())
+        .toList();
+    final companys = html
+        .querySelectorAll(' td.company_nm > a > span')
         .map((e) => e.innerHtml.trim())
         .toList();
     final urls = html
-        .querySelectorAll(
-            'td.notification_info > div.job_tit > a.str_tit') //#rec-44415891 > td.notification_info > div.job_tit > a.str_tit > span
-        .map((e) => 'https://www.saramin.co.kr/${e.attributes['href']}')
+        .querySelectorAll('td.notification_info > div.job_tit > a.str_tit')
+        .map((e) => 'https://www.saramin.co.kr${e.attributes['href']}')
         .toList();
 
     print('Count : ${titles.length}');
+    print(companys);
     for (final title in titles) {
       debugPrint(title);
     }
     setState(() {
-      notices = List.generate(titles.length,
-          (index) => Notice(url: urls[index], title: titles[index], img: ''));
+      notices = List.generate(
+          titles.length,
+          (index) => Notice(
+              url: urls[index],
+              title: titles[index],
+              img: '',
+              company: companys[index]));
     });
   }
 
@@ -65,9 +74,22 @@ class _EmpInfo_SaState extends State<EmpInfo_Sa> {
                 child: Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     height: 80,
-                    child: Card(child: Text(notice.title))),
+                    child: Card(
+                        child: Column(
+                      children: [
+                        Text(
+                          notice.company,
+                          style: Styles.mainText,
+                        ),
+                        Text(
+                          notice.title,
+                          style: Styles.subText,
+                        ),
+                      ],
+                    ))),
                 onTap: () {
-                  launchUrlStart(url: "https://flutter.dev");
+                  launchUrlStart(url: notice.url.toString());
+                  print(notice.url);
                 },
               );
             })));
@@ -83,10 +105,12 @@ class _EmpInfo_SaState extends State<EmpInfo_Sa> {
 class Notice {
   final String? url;
   final String title;
+  final String company;
   final String img;
   const Notice({
     required this.url,
     required this.title,
+    required this.company,
     required this.img,
   });
 }
