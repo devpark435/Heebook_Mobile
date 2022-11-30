@@ -3,6 +3,7 @@ import 'package:heebook_application/main.dart';
 import 'package:heebook_application/assets/Styles.dart';
 import 'package:heebook_application/screens/categorys/EmpInfo/Empinfo_Sa.dart';
 import './EmpInfo/Empinfo_It.dart';
+import 'EmpInfo/Empinfo_Ma.dart';
 
 class EmpInfo extends StatefulWidget {
   const EmpInfo({super.key});
@@ -54,7 +55,15 @@ class _EmpInfoState extends State<EmpInfo> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ctgContaner(context, 'mainText', 'subText'),
+                GestureDetector(
+                  child: ctgContaner(context, '마케팅 테스트', '사복, 사과'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => EmpInfo_Ma())));
+                  },
+                ),
                 ctgContaner(context, 'mainText', 'subText')
               ],
             ),

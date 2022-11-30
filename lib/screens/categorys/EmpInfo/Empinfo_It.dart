@@ -85,34 +85,31 @@ class _EmpInfo_ITState extends State<EmpInfo_IT> {
                             SizedBox(
                               width: 10,
                             ),
-                            SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                                      child: Container(
-                                          width: 350,
-                                          alignment: Alignment.topLeft,
-                                          child: Text(
-                                            empInfoCompany[index]
-                                                .replaceAll(" ", ""),
-                                            style: Styles.mainText,
-                                          )),
-                                    ),
-                                    Container(
-                                        width: 350,
-                                        alignment: Alignment.bottomLeft,
-                                        margin:
-                                            EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                        child: Text(
-                                          empInfoTitle[index],
-                                          // style: Styles.subText,
-                                        )),
-                                  ],
-                                ))
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Container(
+                                  width: 250,
+                                  height: 60,
+                                  alignment: Alignment.topLeft,
+                                  // color: Colors.amber,
+                                  child: Text(
+                                    empInfoCompany[index].replaceAll(" ", ""),
+                                    style: Styles.mainText,
+                                  ),
+                                ),
+                                Container(
+                                    width: 250,
+                                    height: 20,
+                                    alignment: Alignment.bottomLeft,
+                                    margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                    child: Text(
+                                      empInfoTitle[index],
+                                      // style: Styles.subText,
+                                    )),
+                              ],
+                            )
                           ],
                         ),
                       ),
